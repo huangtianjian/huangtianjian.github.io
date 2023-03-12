@@ -1,0 +1,116 @@
+<!-- make by yxj  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>难度超高的猜数字游戏</title>
+    <style>
+        .wrap{ 
+            width: 375px;
+            height: 680px;
+            margin: 20px auto;
+            background-color: #bfa;
+            text-align: center;
+            padding-top: 20px;
+            position: relative;
+            
+        }
+        #submit{
+            width: 120px;
+            height: 60px;
+            background-color: pink;
+            margin: 20px auto;
+            line-height: 60px;
+            font-weight: bold;
+            font-size: 22px;
+            cursor: pointer;
+            
+        }
+        #text{
+            width: 300px;
+            height: 375px;
+            background-color: rgb(109, 121, 211);
+            margin: 0 auto;
+            padding-top: 2px;
+        }
+        #text p{
+            line-height: 16px;
+        }
+        .win{
+            color: #ff0;
+        }
+        #reset{
+            width: 65px;
+            height: 35px;
+            text-align: center;
+            line-height: 35px;
+            font-size: 20px;
+            background-color: #f00;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            right: 0;
+        }
+        .qm{
+            font-size: 10px;
+            font-weight: lighter;
+            color: pink;
+        }
+        .err{
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>猜数字游戏</h1>
+        <p class="qm">高难度动脑游戏</p>
+        <p>请输入一个0-100的数字：</p>
+        <input type="text" id="num">
+        <div id="submit">确定</div>
+        <div id="reset">reset</div>
+        <div id="text"></div>
+        
+    </div>
+    <script>
+        let i = 0;
+        let value = Math.ceil(Math.random()*100);
+        // console.log(value);
+        let text = document.getElementById("num");
+        let btn = document.getElementById("submit");
+        let w = document.getElementById("text");
+        const restart = document.getElementById("reset");
+        var num;
+        text.onblur=function(){
+            num = Number(text.value);
+        }
+        btn.onclick=function(){
+            i++;
+            if(i<=10){
+                if(num < value){
+                w.innerHTML+=`<p>您猜的数字 ${num} 小了哦。请重新输入！</p>`
+                }else if(num > value){
+                    w.innerHTML+=`<p>您猜的数字 ${num} 大了哦。请重新输入！</p>`
+                }else if(num == value){
+                    w.innerHTML+=`<p class="win">你这个老6,仅用了${i}次就猜对了！${num}是正确的！！！</p>`;
+                    return;
+                }else{
+                    alert("请输入数字！")
+                }
+            }else{
+                w.innerHTML+=`<p class="err">游戏结束！！！</p>`
+                return;
+                
+            }
+            
+
+        }
+        restart.onclick = function(){
+            history.go(0);
+            text.value = "";
+        }
+    </script>
+</body>
+</html>
